@@ -3,7 +3,6 @@ package com.kodilla.car_rent_backend.service;
 import com.kodilla.car_rent_backend.domain.Vehicle;
 import com.kodilla.car_rent_backend.repository.VehicleRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

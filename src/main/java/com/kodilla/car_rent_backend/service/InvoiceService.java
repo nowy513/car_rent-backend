@@ -22,7 +22,7 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
 
-    public Optional<Invoice> getInvoice(final Long id){
+    public Optional<Invoice> getInvoice(final Long id) {
         return invoiceRepository.findById(id);
     }
 

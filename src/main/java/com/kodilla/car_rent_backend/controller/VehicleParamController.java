@@ -24,6 +24,11 @@ public class VehicleParamController {
     @Autowired
     private VehicleParamService vehicleParamService;
 
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    public List<VehicleParamDto> getVehicleParam(){
+        return vehicleParamMapper.mapToVehicleParamDtoList(vehicleParamService.getAllVehicleParameters());
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{vehicleParamId}")
     public VehicleParamDto getParameters(@PathVariable Long vehicleParamId)throws VehicleParamNotFoundException {
         return vehicleParamMapper.mapToVehicleParamDto(vehicleParamService.getParameters(vehicleParamId).orElseThrow(VehicleParamNotFoundException::new));

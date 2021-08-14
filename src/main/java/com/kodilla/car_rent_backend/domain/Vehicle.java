@@ -43,11 +43,14 @@ public class Vehicle {
     @Column(name = "PRICE_PER_DAY")
     private double pricePerDay;
 
-    @OneToMany(targetEntity = Order.class,
+    @OneToMany
+            (targetEntity = Order.class,
+            mappedBy = "vehicle",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            mappedBy = "vehicle")
+            fetch = FetchType.LAZY
+    )
     private List<Order> orderList = new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name = "VEHICLE_PARAM_ID")
     private VehicleParam vehicleParam;

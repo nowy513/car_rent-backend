@@ -3,16 +3,13 @@ package com.kodilla.car_rent_backend.service;
 import com.kodilla.car_rent_backend.domain.User;
 import com.kodilla.car_rent_backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserService {
 
     private UserRepository userRepository;

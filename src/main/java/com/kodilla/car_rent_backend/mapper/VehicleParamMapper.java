@@ -2,8 +2,9 @@ package com.kodilla.car_rent_backend.mapper;
 
 import com.kodilla.car_rent_backend.domain.VehicleParam;
 import com.kodilla.car_rent_backend.dto.VehicleParamDto;
+import com.kodilla.car_rent_backend.repository.VehicleRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +12,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class VehicleParamMapper {
 
-    private VehicleMapper vehicleMapper;
+        private VehicleRepository vehicleRepository;
+
+
 
     public VehicleParam mapToVehicleParam(final VehicleParamDto vehicleParametersDto){
         return new VehicleParam(
@@ -29,7 +33,7 @@ public class VehicleParamMapper {
                 vehicleParametersDto.getVehicleMileage(),
                 vehicleParametersDto.getVinNumber(),
                 vehicleParametersDto.getPower(),
-                vehicleMapper.mapToVehicle(vehicleParametersDto.getVehicleId())
+                vehicleRepository.getById(vehicleParametersDto.getVehicleId())
         );
     }
 
@@ -47,17 +51,17 @@ public class VehicleParamMapper {
                 vehicleParameters.getVehicleMileage(),
                 vehicleParameters.getVinNumber(),
                 vehicleParameters.getPower(),
-                vehicleMapper.mapToVehicleDto(vehicleParameters.getVehicle())
+                vehicleParameters.getVehicle().getId()
         );
     }
 
-    public List<VehicleParam> mapToVehicleParam(final List<VehicleParamDto> parameters){
+    public List<VehicleParam> mapToVehicleParamList(final List<VehicleParamDto> parameters){
         return parameters.stream()
                 .map(this::mapToVehicleParam)
                 .collect(Collectors.toList());
     }
 
-    public List<VehicleParamDto> mapToVehicleParamDto(final List<VehicleParam> parameters){
+    public List<VehicleParamDto> mapToVehicleParamDtoList(final List<VehicleParam> parameters){
         return parameters.stream()
                 .map(this::mapToVehicleParamDto)
                 .collect(Collectors.toList());

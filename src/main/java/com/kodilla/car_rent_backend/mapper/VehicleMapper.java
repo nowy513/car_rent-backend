@@ -1,20 +1,27 @@
 package com.kodilla.car_rent_backend.mapper;
 
+import com.kodilla.car_rent_backend.domain.Order;
 import com.kodilla.car_rent_backend.domain.Vehicle;
 import com.kodilla.car_rent_backend.dto.VehicleDto;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kodilla.car_rent_backend.repository.OrderRepository;
+import com.kodilla.car_rent_backend.repository.VehicleParamRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class VehicleMapper {
 
-    private OrderMapper orderMapper;
-    private VehicleParamMapper vehicleParamMapper;
+    private OrderRepository orderRepository;
+
+    private VehicleParamRepository vehicleParamRepository;
+
 
     public Vehicle mapToVehicle(final VehicleDto vehicleDto) {
         return new Vehicle(
@@ -24,8 +31,11 @@ public class VehicleMapper {
                 vehicleDto.getRegistration(),
                 vehicleDto.getAvailability(),
                 vehicleDto.getPricePerDay(),
-                orderMapper.mapToOrderList(vehicleDto.getOrderDtoList()),
-                vehicleParamMapper.mapToVehicleParam(vehicleDto.getVehicleParamId())
+                vehicleDto.getOrderDtoList().stream()
+                        .map(orderRepository::findById)
+                        .map(Optional::get)
+                        .collect(Collectors.toList()),
+                vehicleParamRepository.getById(vehicleDto.getVehicleParamId())
         );
     }
 
@@ -37,8 +47,10 @@ public class VehicleMapper {
                 vehicle.getRegistration(),
                 vehicle.getAvailability(),
                 vehicle.getPricePerDay(),
-                vehicleParamMapper.mapToVehicleParamDto(vehicle.getVehicleParam()),
-                orderMapper.mapToOrderListDto(vehicle.getOrderList())
+                vehicle.getOrderList().stream()
+                .map(Order::getId)
+                .collect(Collectors.toList()),
+                vehicle.getVehicleParam().getId()
         );
     }
 

@@ -4,6 +4,7 @@ import com.kodilla.car_rent_backend.dto.UserDto;
 import com.kodilla.car_rent_backend.exception.UserNotFoundException;
 import com.kodilla.car_rent_backend.mapper.UserMapper;
 import com.kodilla.car_rent_backend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @CrossOrigin("*")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/user")
 public class UserController {
 

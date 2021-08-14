@@ -22,5 +22,5 @@ public class VehicleParamDto {
     private BigDecimal vehicleMileage;
     private int vinNumber;
     private double power;
-    private VehicleDto vehicleId;
+    private Long vehicleId;
 }

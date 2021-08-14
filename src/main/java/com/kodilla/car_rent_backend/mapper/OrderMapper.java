@@ -2,9 +2,11 @@ package com.kodilla.car_rent_backend.mapper;
 
 import com.kodilla.car_rent_backend.domain.Order;
 import com.kodilla.car_rent_backend.dto.OrderDto;
+import com.kodilla.car_rent_backend.repository.InvoiceRepository;
+import com.kodilla.car_rent_backend.repository.UserRepository;
+import com.kodilla.car_rent_backend.repository.VehicleRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,17 +14,15 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class OrderMapper {
 
-    @Autowired
-    private VehicleMapper vehicleMapper;
 
-    @Autowired
-    private UserMapper userMapper;
+    private VehicleRepository vehicleRepository;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+    private InvoiceRepository invoiceRepository;
+
+    private UserRepository userRepository;
 
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
@@ -30,10 +30,9 @@ public class OrderMapper {
                 orderDto.getDataOfRental(),
                 orderDto.getDateOfReturn(),
                 orderDto.getRentCost(),
-                userMapper.mapToUser(orderDto.getUserId()),
-                vehicleMapper.mapToVehicle(orderDto.getVehicleDto()),
-                invoiceMapper.mapToInvoice(orderDto.getInvoiceDto())
-
+                userRepository.getById(orderDto.getUserId()),
+                vehicleRepository.getById(orderDto.getVehicleDto()),
+                invoiceRepository.getById(orderDto.getInvoiceDto())
         );
     }
 
@@ -43,9 +42,9 @@ public class OrderMapper {
                 order.getDataOfRental(),
                 order.getDateOfReturn(),
                 order.getRentCost(),
-                userMapper.mapToUserDto(order.getUser()),
-                vehicleMapper.mapToVehicleDto(order.getVehicle()),
-                invoiceMapper.mapToInvoiceDto(order.getInvoice())
+                order.getUser().getId(),
+                order.getVehicle().getId(),
+                order.getInvoice().getId()
 
         );
     }

@@ -22,7 +22,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Optional<Order> getOrder(final Long id){
+    public Optional<Order> getOrder(final Long id) {
         return orderRepository.findById(id);
     }
 

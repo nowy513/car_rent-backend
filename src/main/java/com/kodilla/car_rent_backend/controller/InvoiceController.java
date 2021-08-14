@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -37,6 +36,11 @@ public class InvoiceController {
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void createInvoice(@RequestBody InvoiceDto invoiceDto){
         invoiceService.saveInvoice(invoiceMapper.mapToInvoice(invoiceDto));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public InvoiceDto updateInvoice(@RequestBody InvoiceDto invoiceDto){
+        return invoiceMapper.mapToInvoiceDto(invoiceService.saveInvoice(invoiceMapper.mapToInvoice(invoiceDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{invoiceId}")

@@ -1,13 +1,17 @@
 package com.kodilla.car_rent_backend.mapper;
 
+import com.kodilla.car_rent_backend.domain.Invoice;
+import com.kodilla.car_rent_backend.domain.Order;
 import com.kodilla.car_rent_backend.domain.User;
 import com.kodilla.car_rent_backend.dto.UserDto;
+import com.kodilla.car_rent_backend.repository.InvoiceRepository;
+import com.kodilla.car_rent_backend.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,11 +19,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserMapper {
 
-    @Autowired
-    private OrderMapper orderMapper;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+        private OrderRepository orderRepository;
+
+        private InvoiceRepository invoiceRepository;
+
 
     public User mapToUser(final UserDto userDto){
         return new User(
@@ -29,9 +33,14 @@ public class UserMapper {
                 userDto.getPhone(),
                 userDto.getEmail(),
                 userDto.getPesel(),
-                orderMapper.mapToOrderList(userDto.getOrderDtoList()),
-                invoiceMapper.mapToInvoiceList(userDto.getInvoiceId())
-
+                userDto.getOrderDtoList().stream()
+                .map(orderRepository::findById)
+                .map(Optional::get)
+                .collect(Collectors.toList()),
+                userDto.getInvoiceId().stream()
+                .map(invoiceRepository::findById)
+                .map(Optional::get)
+                .collect(Collectors.toList())
         );
     }
 
@@ -43,9 +52,12 @@ public class UserMapper {
                 user.getPhone(),
                 user.getEmail(),
                 user.getPesel(),
-                orderMapper.mapToOrderListDto(user.getOrderList()),
-                invoiceMapper.mapToInvoiceListDto(user.getInvoiceList())
-
+                user.getOrderList().stream()
+                .map(Order::getId)
+                .collect(Collectors.toList()),
+                user.getInvoiceList().stream()
+                .map(Invoice::getId)
+                .collect(Collectors.toList())
         );
     }
 

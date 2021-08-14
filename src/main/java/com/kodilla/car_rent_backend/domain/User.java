@@ -1,9 +1,6 @@
 package com.kodilla.car_rent_backend.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
+@Data
 @Entity
 @Table(name = "USER")
 public class User {
@@ -61,4 +59,9 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Invoice> invoiceList = new ArrayList<>();
+
+    public User(long id, String firstName) {
+        this.id = id;
+        this.firstName =firstName;
+    }
 }

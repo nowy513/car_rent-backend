@@ -1,32 +1,35 @@
 package com.kodilla.car_rent_backend.mapper;
+
 import com.kodilla.car_rent_backend.domain.Invoice;
 import com.kodilla.car_rent_backend.dto.InvoiceDto;
+import com.kodilla.car_rent_backend.repository.OrderRepository;
+import com.kodilla.car_rent_backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
+@Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class InvoiceMapper {
 
-    @Autowired
-    private OrderMapper orderMapper;
+    private OrderRepository orderRepository;
 
-    @Autowired
-    private UserMapper userMapper;
+    private UserRepository userRepository;
+
+
 
 
     public Invoice mapToInvoice(final InvoiceDto invoiceDto){
         return new Invoice(
                 invoiceDto.getId(),
                 invoiceDto.getInvoiceNumber(),
-                userMapper.mapToUser(invoiceDto.getUserId()),
-                orderMapper.mapToOrder(invoiceDto.getOrderDto())
+                userRepository.getById(invoiceDto.getUserId()),
+                orderRepository.getById(invoiceDto.getOrderDto())
+
         );
     }
 
@@ -34,8 +37,8 @@ public class InvoiceMapper {
         return new InvoiceDto(
                 invoice.getId(),
                 invoice.getInvoiceNumber(),
-                userMapper.mapToUserDto(invoice.getUser()),
-                orderMapper.mapToOrderDto(invoice.getOrder())
+                invoice.getUser().getId(),
+                invoice.getOrder().getId()
         );
     }
 
