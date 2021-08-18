@@ -16,7 +16,7 @@ public class UserDto {
     private String surName;
     private int phone;
     private String email;
-    private int pesel;
+    private Long pesel;
     private List<Long> orderDtoList;
     private List<Long> invoiceId;
 

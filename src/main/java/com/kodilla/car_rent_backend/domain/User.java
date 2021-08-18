@@ -41,7 +41,7 @@ public class User {
 
     @Column(name = "PESEL")
     @NotNull
-    private int pesel;
+    private Long pesel;
 
     @OneToMany(
             targetEntity = Order.class,
