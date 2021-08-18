@@ -30,7 +30,7 @@ public class UserServiceTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
         List<User> userList = new ArrayList<>();
         userList.add(user);
@@ -48,7 +48,7 @@ public class UserServiceTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
         List<User> users = new ArrayList<>();
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -65,7 +65,7 @@ public class UserServiceTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         when(userRepository.save(user)).thenReturn(user);
@@ -84,7 +84,7 @@ public class UserServiceTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
         Long id = user.getId();
 

@@ -66,12 +66,12 @@ public class UserControllerTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         UserDto userDto = new UserDto(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
 
@@ -117,7 +117,7 @@ public class UserControllerTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         when(userService.saveUser(user)).thenReturn(user);
@@ -135,16 +135,16 @@ public class UserControllerTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         UserDto userDto = new UserDto(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         when(userService.saveUser(any(User.class))).thenReturn(new User(1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()));
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()));
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(userDto);
@@ -164,20 +164,20 @@ public class UserControllerTest {
 //        Given
         User user = new User(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         UserDto userDto = new UserDto(
                 1L, "FirstName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
         UserDto userDto2 = new UserDto(
                 4L, "UpdateName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()
         );
 
         when(userService.saveUser(user)).thenReturn(new User(4L, "UpdateName", "Surname", 873847283,
-                "email@email.com", 938294819,new ArrayList<>(), new ArrayList<>()));
+                "email@email.com", 938294819L,new ArrayList<>(), new ArrayList<>()));
         when(userMapper.mapToUserDto(any())).thenReturn(userDto2);
         when(userMapper.mapToUser(any())).thenReturn(user);
 
